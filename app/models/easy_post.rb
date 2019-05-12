@@ -1,0 +1,2 @@
+class EasyPost < ApplicationRecord
+end

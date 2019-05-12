@@ -26,21 +26,7 @@ class EasyPostsController < ApplicationController
   # POST /easy_posts
   # POST /easy_posts.json
   def create
-    p "*********"
-    EasyPost.api_key = ENV['EASY_POST_API']
 
-
-    # @easy_post = EasyPost.new(easy_post_params)
-    #
-    # respond_to do |format|
-    #   if @easy_post.save
-    #     format.html { redirect_to @easy_post, notice: 'Easy post was successfully created.' }
-    #     format.json { render :show, status: :created, location: @easy_post }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @easy_post.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /easy_posts/1

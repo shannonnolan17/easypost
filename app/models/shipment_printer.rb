@@ -1,0 +1,2 @@
+class ShipmentPrinter < ApplicationRecord
+end

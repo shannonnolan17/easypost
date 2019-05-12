@@ -1,34 +1,9 @@
 require 'easypost'
 
 class ShipmentPrintersController < ApplicationController
-  before_action :set_shipment_printer, only: [:show, :edit, :update, :destroy]
   protect_from_forgery with: :null_session
 
-  # GET /shipment_printers
-  # GET /shipment_printers.json
-  def index
-    @shipment_printers = ShipmentPrinter.all
-  end
-
-  # GET /shipment_printers/1
-  # GET /shipment_printers/1.json
-  def show
-  end
-
-  # GET /shipment_printers/new
-  def new
-    @shipment_printer = ShipmentPrinter.new
-  end
-
-  # GET /shipment_printers/1/edit
-  def edit
-  end
-
-  # POST /shipment_printers
-  # POST /shipment_printers.json
   def create
-    p "*********"
-    p params
     EasyPost.api_key = ENV['EASY_POST_API']
     to_address = EasyPost::Address.create(
       :company => params[:to_address][:company],
@@ -89,7 +64,6 @@ class ShipmentPrintersController < ApplicationController
     shipment.buy(
       :rate => shipment.lowest_rate
     )
-    byebug
     shipment.insure(amount: 100)
     shipment.postage_label.label_url
 
@@ -100,29 +74,6 @@ class ShipmentPrintersController < ApplicationController
 
   end
 
-  # PATCH/PUT /shipment_printers/1
-  # PATCH/PUT /shipment_printers/1.json
-  def update
-    respond_to do |format|
-      if @shipment_printer.update(shipment_printer_params)
-        format.html { redirect_to @shipment_printer, notice: 'Shipment printer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @shipment_printer }
-      else
-        format.html { render :edit }
-        format.json { render json: @shipment_printer.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /shipment_printers/1
-  # DELETE /shipment_printers/1.json
-  def destroy
-    @shipment_printer.destroy
-    respond_to do |format|
-      format.html { redirect_to shipment_printers_url, notice: 'Shipment printer was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

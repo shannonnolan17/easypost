@@ -1,67 +1,159 @@
-<h1>New Shipment Printer</h1>
+<h1 class="text-center py-5 font-weight-bold text-primary">Create Label</h1>
 
-<%= render 'form', shipment_printer: @shipment_printer %>
 <form action="/shipment_printers" method="post">
-  <h1>Who would you like to send it to?</h1>
-  <label>Company</label>
-  <input type="text" name="to_address[company]">
-  <label>Name</label>
-  <input type="text" name="to_address[name]">
-  <label>Street</label>
-  <input type="text" name="to_address[street1]">
-  <label>Street</label>
-  <input type="text" name="to_address[street2]">
-  <label>City</label>
-  <input type="text" name="to_address[city]">
-  <label>State</label>
-  <input type="text" name="to_address[state]">
-  <label>Zip</label>
-  <input type="number" name="to_address[zip]">
-  <label>Country</label>
-  <input type="text" name="to_address[country]">
-  <label>Phone Number</label>
-  <input type="number" name="to_address[phone]">
-  <label>Email</label>
-  <input type="email" name="to_address[email]">
+  <div class="container">
+    <div class="row pb-4">
+      <div class="col-sm-12 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="text-secondary">Who would you like to send it to?</h3>
+            <p class="pb-4">This is the receipent's information</p>
+            <div class="form-group">
+              <label>Company</label>
+              <input type="text" class="form-control" placeholder="Optional" name="to_address[company]">
+            </div>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control" name="to_address[name]">
+            </div>
+            <div class="form-group">
+              <label>Address Line 1</label>
+              <input type="text"class="form-control" name="to_address[street1]">
+            </div>
+            <div class="form-group">
+              <label>Address Line 2</label>
+              <input type="text" class="form-control" placeholder="Optional" name="to_address[street2]">
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" class="form-control" name="to_address[city]">
+            </div>
+            <div class="form-group">
+              <label>State</label>
+              <input type="text" class="form-control" name="to_address[state]">
+            </div>
+            <div class="form-group">
+              <label>Zip</label>
+              <input type="number" class="form-control" name="to_address[zip]">
+            </div>
+            <div class="form-group">
+              <label>Country</label>
+              <input type="text" class="form-control" name="to_address[country]">
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" class="form-control" name="to_address[phone]">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-control" name="to_address[email]">
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <h1>Who is it from?</h1>
-  <label>Company</label>
-  <input type="text" name="from_address[company]">
-  <label>Name</label>
-  <input type="text" name="from_address[name]">
-  <label>Street</label>
-  <input type="text" name="from_address[street1]">
-  <label>Street</label>
-  <input type="text" name="from_address[street2]">
-  <label>City</label>
-  <input type="text" name="from_address[city]">
-  <label>State</label>
-  <input type="text" name="from_address[state]">
-  <label>Zip</label>
-  <input type="number" name="from_address[zip]">
-  <label>Country</label>
-  <input type="text" name="from_address[country]">
-  <label>Phone Number</label>
-  <input type="number" name="from_address[phone]">
+      <div class="col-sm-12 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="text-secondary">Who is it from?</h3>
+            <p class="pb-4">This is your information</p>
+            <div class="form-group">
+              <label>Company</label>
+              <input type="text" class="form-control" placeholder="Optional" name="from_address[company]">
+            </div>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control" name="from_address[name]">
+            </div>
+            <div class="form-group">
+              <label>Address Line 1</label>
+              <input type="text" class="form-control" ame="from_address[street1]">
+            </div>
+            <div class="form-group">
+              <label>Address Line 2</label>
+              <input type="text" class="form-control" placeholder="Optional" name="from_address[street2]">
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" class="form-control" name="from_address[city]">
+            </div>
+            <div class="form-group">
+              <label>State</label>
+              <input type="text" class="form-control" name="from_address[state]">
+            </div>
+            <div class="form-group">
+              <label>Zip</label>
+              <input type="number" class="form-control" name="from_address[zip]">
+            </div>
+            <div class="form-group">
+              <label>Country</label>
+              <input type="text" class="form-control" name="from_address[country]">
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" class="form-control" name="from_address[phone]">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <h1>What is it?</h1>
-  <label>Description</label>
-  <input type="text" name="parcel[description]">
-  <label>Quantity</label>
-  <input type="number" name="parcel[quantity]">
-  <label>Value</label>
-  <input type="number" name="parcel[value]">
-  <label>Weight</label>
-  <input type="number" name="parcel[weight]">
-  <label>Width</label>
-  <input type="number" name="parcel[width]">
-  <label>Length</label>
-  <input type="number" name="parcel[length]">
-  <label>Height</label>
-  <input type="number" name="parcel[height]">
-
-
-  <input type="submit" value="Submit This Form">
+    <div class="row pb-2">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="text-secondary">What is it?</h3>
+            <p class="pb-4">Please describe what you are sending</p>
+            <div>
+              <label>Description</label>
+              <input type="text" class="form-control" name="parcel[description]">
+            </div>
+            <div class="row py-2">
+              <div class="col-6">
+                <div>
+                  <label>Quantity</label>
+                  <input type="number" class="form-control" name="parcel[quantity]">
+                </div>
+              </div>
+              <div class="col-6">
+                <div>
+                  <label>Value</label>
+                  <input type="number" class="form-control" name="parcel[value]">
+                </div>
+              </div>
+            </div>
+            <div class="row py-2">
+              <div class="col-3">
+                <div>
+                  <label>Weight</label>
+                  <input type="number" class="form-control" name="parcel[weight]">
+                </div>
+              </div>
+              <div class="col-3">
+                <div>
+                  <label>Width</label>
+                  <input type="number" class="form-control" name="parcel[width]">
+                </div>
+              </div>
+              <div class="col-3">
+                <div>
+                  <label>Length</label>
+                  <input type="number" class="form-control" name="parcel[length]">
+                </div>
+              </div>
+              <div class="col-3">
+                <div>
+                  <label>Height</label>
+                  <input type="number" class="form-control" name="parcel[height]">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <input type="submit" class="btn btn-primary" value="Submit This Form">
+  </div>
 </form>
 
 

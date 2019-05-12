@@ -218,11 +218,12 @@
                 </div>
               </div>
             </div>
+            <p class="pt-3 text-secondary">Please describe your parcel</p>
             <div class="row py-2">
               <div class="col-3">
                 <div>
                   <label>Weight</label>
-                  <input type="number" class="form-control" name="parcel[weight]" required="true">
+                  <input type="number" class="form-control" name="parcel[weight]" >
                 </div>
               </div>
               <div class="col-3">
@@ -256,5 +257,9 @@
   </div>
 </form>
 
-
+<% if @message %>
+  <div class="toast-body">
+    <%= @message %>
+  </div>
+<% end %>
 <%= link_to 'Back', shipment_printers_path %>

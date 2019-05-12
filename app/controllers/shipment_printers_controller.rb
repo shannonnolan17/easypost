@@ -56,24 +56,27 @@ class ShipmentPrintersController < ApplicationController
       :customs_items => [customs_item]
     )
 
-    shipment = EasyPost::Shipment.create(
-      :to_address => to_address,
-      :from_address => from_address,
-      :parcel => parcel,
-      :customs_info => customs_info
-    )
+    begin
+      shipment = EasyPost::Shipment.create(
+        :to_address => to_address,
+        :from_address => from_address,
+        :parcel => parcel,
+        :customs_info => customs_info
+      )
+      shipment.buy(
+        :rate => shipment.lowest_rate
+      )
+      shipment.insure(amount: 100)
+      shipment.postage_label.label_url
 
-    shipment.buy(
-      :rate => shipment.lowest_rate
-    )
-    shipment.insure(amount: 100)
-    shipment.postage_label.label_url
-
-    @shipment_printer = ShipmentPrinter.create(label_url: shipment.postage_label.label_url)
-    if @shipment_printer.save
-      redirect_to shipment.postage_label.label_url
+      @shipment_printer = ShipmentPrinter.create(label_url: shipment.postage_label.label_url)
+      if @shipment_printer.save
+        redirect_to shipment.postage_label.label_url
+      end
+    rescue EasyPost::Error => e
+      flash[:notice] = e.code
+      render :new
     end
-
   end
 
 

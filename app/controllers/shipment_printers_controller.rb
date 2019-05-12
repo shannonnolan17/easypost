@@ -13,11 +13,13 @@ class ShipmentPrintersController < ApplicationController
       :city => params[:to_address][:city],
       :state => params[:to_address][:state],
       :zip => params[:to_address][:zip],
-      :country => params[:to_address][:country],
-      :phone => params[:to_address][:phone]
+      :country => 'us',
+      :phone => params[:to_address][:phone],
+      :email => params[:to_address][:email]
     )
     from_address = EasyPost::Address.create(
       :company => params[:from_address][:company],
+      :name => params[:from_address][:name],
       :street1 => params[:from_address][:street1],
       :street2 => params[:from_address][:street2],
       :city => params[:from_address][:city],
@@ -44,9 +46,9 @@ class ShipmentPrintersController < ApplicationController
     customs_info = EasyPost::CustomsInfo.create(
       :integrated_form_type => 'form_2976',
       :customs_certify => true,
-      :customs_signer => 'Dr. Pepper',
+      :customs_signer => params[:to_address][:name],
       :contents_type => 'gift',
-      :contents_explanation => '', # only required when contents_type => 'other'
+      :contents_explanation => '',
       :eel_pfc => 'NOEEI 30.37(a)',
       :non_delivery_option => 'abandon',
       :restriction_type => 'none',

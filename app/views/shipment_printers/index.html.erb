@@ -1,25 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Shipment Printers</h1>
+<h1 class="text-center mt-5">Welcome to the Shipment Printer!</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @shipment_printers.each do |shipment_printer| %>
-      <tr>
-        <td><%= link_to 'Show', shipment_printer %></td>
-        <td><%= link_to 'Edit', edit_shipment_printer_path(shipment_printer) %></td>
-        <td><%= link_to 'Destroy', shipment_printer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Shipment Printer', new_shipment_printer_path %>
+<p class="text-center">Would you like to create a shipment label?</p>
+<div class="text-center">
+  <%= link_to 'Create Label', new_shipment_printer_path %>
+</div>

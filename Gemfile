@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'dotenv-rails', groups: [:development, :test]
 
 gem 'easypost'
+
+gem 'bootstrap'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

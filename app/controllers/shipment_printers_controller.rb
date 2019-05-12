@@ -1,34 +1,9 @@
 require 'easypost'
 
 class ShipmentPrintersController < ApplicationController
-  before_action :set_shipment_printer, only: [:show, :edit, :update, :destroy]
   protect_from_forgery with: :null_session
 
-  # GET /shipment_printers
-  # GET /shipment_printers.json
-  def index
-    @shipment_printers = ShipmentPrinter.all
-  end
-
-  # GET /shipment_printers/1
-  # GET /shipment_printers/1.json
-  def show
-  end
-
-  # GET /shipment_printers/new
-  def new
-    @shipment_printer = ShipmentPrinter.new
-  end
-
-  # GET /shipment_printers/1/edit
-  def edit
-  end
-
-  # POST /shipment_printers
-  # POST /shipment_printers.json
   def create
-    p "*********"
-    p params
     EasyPost.api_key = ENV['EASY_POST_API']
     to_address = EasyPost::Address.create(
       :company => params[:to_address][:company],
@@ -38,11 +13,13 @@ class ShipmentPrintersController < ApplicationController
       :city => params[:to_address][:city],
       :state => params[:to_address][:state],
       :zip => params[:to_address][:zip],
-      :country => params[:to_address][:country],
-      :phone => params[:to_address][:phone]
+      :country => 'us',
+      :phone => params[:to_address][:phone],
+      :email => params[:to_address][:email]
     )
     from_address = EasyPost::Address.create(
       :company => params[:from_address][:company],
+      :name => params[:from_address][:name],
       :street1 => params[:from_address][:street1],
       :street2 => params[:from_address][:street2],
       :city => params[:from_address][:city],
@@ -69,9 +46,9 @@ class ShipmentPrintersController < ApplicationController
     customs_info = EasyPost::CustomsInfo.create(
       :integrated_form_type => 'form_2976',
       :customs_certify => true,
-      :customs_signer => 'Dr. Pepper',
+      :customs_signer => params[:to_address][:name],
       :contents_type => 'gift',
-      :contents_explanation => '', # only required when contents_type => 'other'
+      :contents_explanation => '',
       :eel_pfc => 'NOEEI 30.37(a)',
       :non_delivery_option => 'abandon',
       :restriction_type => 'none',
@@ -89,7 +66,6 @@ class ShipmentPrintersController < ApplicationController
     shipment.buy(
       :rate => shipment.lowest_rate
     )
-    byebug
     shipment.insure(amount: 100)
     shipment.postage_label.label_url
 
@@ -100,29 +76,6 @@ class ShipmentPrintersController < ApplicationController
 
   end
 
-  # PATCH/PUT /shipment_printers/1
-  # PATCH/PUT /shipment_printers/1.json
-  def update
-    respond_to do |format|
-      if @shipment_printer.update(shipment_printer_params)
-        format.html { redirect_to @shipment_printer, notice: 'Shipment printer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @shipment_printer }
-      else
-        format.html { render :edit }
-        format.json { render json: @shipment_printer.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /shipment_printers/1
-  # DELETE /shipment_printers/1.json
-  def destroy
-    @shipment_printer.destroy
-    respond_to do |format|
-      format.html { redirect_to shipment_printers_url, notice: 'Shipment printer was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

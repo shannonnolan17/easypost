@@ -1,24 +1,10 @@
-# README
+# USING EASYPOST API TO CREATE SHIPPING LABEL
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+In this project, I created a simple form using Rails that makes a call to the Easy Post API that then creates the label and redirects the user to the created label. I chose to think that this would be used for domestic shipping even though the API can do international shipping. I added error handling to any fields that are required to create the shipment label.
 
-Things you may want to cover:
+To get it running:
+* clone
+* run `bundle install`
+* run `rails s` to start rails server
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Once the program is running go to **/shipment_printers** for a quick welcome or **/shipment_printers/new** to see the form and create a label

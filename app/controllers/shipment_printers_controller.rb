@@ -2,6 +2,7 @@ require 'easypost'
 
 class ShipmentPrintersController < ApplicationController
   before_action :set_shipment_printer, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery with: :null_session
 
   # GET /shipment_printers
   # GET /shipment_printers.json
@@ -27,38 +28,41 @@ class ShipmentPrintersController < ApplicationController
   # POST /shipment_printers.json
   def create
     p "*********"
+    p params
     EasyPost.api_key = ENV['EASY_POST_API']
     to_address = EasyPost::Address.create(
-      :name => 'Dr. Steve Brule',
-      :street1 => '179 N Harbor Dr',
-      :city => 'Redondo Beach',
-      :state => 'CA',
-      :zip => '90277',
-      :country => 'US',
-      :phone => '310-808-5243'
+      :company => params[:to_address][:company],
+      :name => params[:to_address][:name],
+      :street1 => params[:to_address][:street1],
+      :street2 => params[:to_address][:street2],
+      :city => params[:to_address][:city],
+      :state => params[:to_address][:state],
+      :zip => params[:to_address][:zip],
+      :country => params[:to_address][:country],
+      :phone => params[:to_address][:phone]
     )
     from_address = EasyPost::Address.create(
-      :company => 'EasyPost',
-      :street1 => '118 2nd Street',
-      :street2 => '4th Floor',
-      :city => 'San Francisco',
-      :state => 'CA',
-      :zip => '94105',
-      :phone => '415-456-7890'
+      :company => params[:from_address][:company],
+      :street1 => params[:from_address][:street1],
+      :street2 => params[:from_address][:street2],
+      :city => params[:from_address][:city],
+      :state => params[:from_address][:state],
+      :zip => params[:from_address][:zip],
+      :phone => params[:from_address][:phone]
     )
 
     parcel = EasyPost::Parcel.create(
-      :width => 15.2,
-      :length => 18,
-      :height => 9.5,
-      :weight => 35.1
+      :width => params[:parcel][:width],
+      :length => params[:parcel][:length],
+      :height => params[:parcel][:height],
+      :weight => params[:parcel][:weight]
     )
 
     customs_item = EasyPost::CustomsItem.create(
-      :description => 'EasyPost T-shirts',
-      :quantity => 2,
-      :value => 23.56,
-      :weight => 33,
+      :description => params[:parcel][:description],
+      :quantity => params[:parcel][:quantity],
+      :value => params[:parcel][:value],
+      :weight => params[:parcel][:weight],
       :origin_country => 'us',
       :hs_tariff_number => 123456
     )
@@ -85,12 +89,13 @@ class ShipmentPrintersController < ApplicationController
     shipment.buy(
       :rate => shipment.lowest_rate
     )
-
+    byebug
     shipment.insure(amount: 100)
-    shipment.label(file_format: "ZPL")
-    @shipment_printer = ShipmentPrinter.new(shipment_printer_params)
+    shipment.postage_label.label_url
+
+    @shipment_printer = ShipmentPrinter.create(label_url: shipment.postage_label.label_url)
     if @shipment_printer.save
-      render :show, status: :ok, location: @shipment_printer
+      redirect_to shipment.postage_label.label_url
     end
 
   end

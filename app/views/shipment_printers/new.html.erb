@@ -1,5 +1,68 @@
 <h1>New Shipment Printer</h1>
 
 <%= render 'form', shipment_printer: @shipment_printer %>
+<form action="/shipment_printers" method="post">
+  <h1>Who would you like to send it to?</h1>
+  <label>Company</label>
+  <input type="text" name="to_address[company]">
+  <label>Name</label>
+  <input type="text" name="to_address[name]">
+  <label>Street</label>
+  <input type="text" name="to_address[street1]">
+  <label>Street</label>
+  <input type="text" name="to_address[street2]">
+  <label>City</label>
+  <input type="text" name="to_address[city]">
+  <label>State</label>
+  <input type="text" name="to_address[state]">
+  <label>Zip</label>
+  <input type="number" name="to_address[zip]">
+  <label>Country</label>
+  <input type="text" name="to_address[country]">
+  <label>Phone Number</label>
+  <input type="number" name="to_address[phone]">
+  <label>Email</label>
+  <input type="email" name="to_address[email]">
+
+  <h1>Who is it from?</h1>
+  <label>Company</label>
+  <input type="text" name="from_address[company]">
+  <label>Name</label>
+  <input type="text" name="from_address[name]">
+  <label>Street</label>
+  <input type="text" name="from_address[street1]">
+  <label>Street</label>
+  <input type="text" name="from_address[street2]">
+  <label>City</label>
+  <input type="text" name="from_address[city]">
+  <label>State</label>
+  <input type="text" name="from_address[state]">
+  <label>Zip</label>
+  <input type="number" name="from_address[zip]">
+  <label>Country</label>
+  <input type="text" name="from_address[country]">
+  <label>Phone Number</label>
+  <input type="number" name="from_address[phone]">
+
+  <h1>What is it?</h1>
+  <label>Description</label>
+  <input type="text" name="parcel[description]">
+  <label>Quantity</label>
+  <input type="number" name="parcel[quantity]">
+  <label>Value</label>
+  <input type="number" name="parcel[value]">
+  <label>Weight</label>
+  <input type="number" name="parcel[weight]">
+  <label>Width</label>
+  <input type="number" name="parcel[width]">
+  <label>Length</label>
+  <input type="number" name="parcel[length]">
+  <label>Height</label>
+  <input type="number" name="parcel[height]">
+
+
+  <input type="submit" value="Submit This Form">
+</form>
+
 
 <%= link_to 'Back', shipment_printers_path %>

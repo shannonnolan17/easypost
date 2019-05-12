@@ -1,0 +1,2 @@
+module ShipmentPrintersHelper
+end

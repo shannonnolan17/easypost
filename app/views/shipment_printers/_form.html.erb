@@ -1,0 +1,17 @@
+<%= form_with(model: shipment_printer, local: true) do |form| %>
+  <% if shipment_printer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(shipment_printer.errors.count, "error") %> prohibited this shipment_printer from being saved:</h2>
+
+      <ul>
+      <% shipment_printer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
